@@ -17,12 +17,11 @@ public class PidController {
                 while (true) {
                     float err = ec.getError();
                     float p_term = p_ * err;
-                    cumulative_err += err;
+                    cumulative_err += err; // TODO: Multiply by dt.
                     float i_term = i_ * cumulative_err;
                     float d_term = d_ * (err - last_err);
                     last_err = err;
                     eh.handleError(p_term + i_term + d_term);
-                    this.notify();
                 }
             }
         })).run();
