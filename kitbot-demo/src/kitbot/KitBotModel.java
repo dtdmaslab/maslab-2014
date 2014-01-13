@@ -1,5 +1,6 @@
 package kitbot;
 
+import vision.BallTrack;
 import jssc.SerialPort;
 import jssc.SerialPortException;
 
@@ -48,11 +49,23 @@ public class KitBotModel {
             // drawSquare();
 
             // Track closest red ball.
-            // trackRed();
+            trackRed();
         }
         catch (Exception ex){
             System.out.println(ex);
         }
+	}
+
+	public void trackRed() {
+		while (true) {
+			double bearing = BallTrack.getBearing();
+			// If bearing is not a number, we don't see any balls.
+			// TODO: Spin looking for balls here in the case of NaN?
+			if (!Double.isNaN(bearing)) {
+				desired = current + (int)bearing;
+			}
+			Thread.yield();
+		}
 	}
 
 	private void drawSquare() {
