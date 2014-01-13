@@ -6,8 +6,8 @@ import jssc.SerialPortException;
 
 public class KitBotModel {
 	final static double TURN_THRESH = 10;
-	final static double MIN_POWER = 0.2;
-	final static double POWER_SCALE = 0.3;
+	final static double MIN_POWER = 0.07;
+	final static double POWER_SCALE = 0.28;
 
 	private SerialPort serialPort;
     private byte motorA = 0;
@@ -18,8 +18,9 @@ public class KitBotModel {
     private double f = 0;
 
 	public KitBotModel() {
+		BallTrack.setup();
 		try {
-			serialPort = new SerialPort("/dev/ttyACM0");
+			serialPort = new SerialPort("COM5");
             serialPort.openPort();
             serialPort.setParams(115200, 8, 1, 0);
             new Thread(new SerialPortListener(this, serialPort)).start();

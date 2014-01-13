@@ -14,7 +14,9 @@ import org.opencv.highgui.VideoCapture;
 
 public class BallTrack {
 	static VideoCapture camera;
-	private static boolean DEBUG_MODE = false;;
+	private static boolean DEBUG_MODE = false;
+	private static JLabel cameraPane = null;
+	private static JLabel opencvPane = null;
 
 	protected static Mat getVideoPicture() {
 		/*if (camera == null) {
@@ -33,24 +35,24 @@ public class BallTrack {
 		return image;
 	}
 
-	public static double getBearing() {
+	public static void setup() {
 		// Load the OpenCV library
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
 		// Setup the camera
 		camera = new VideoCapture();
-		camera.open(0);
+		camera.open(2);
 
 		// Create GUI windows to display camera output and OpenCV output
-		JLabel cameraPane = null;
-		JLabel opencvPane = null;
 		if (DEBUG_MODE) {
 			int width = (int) (camera.get(Highgui.CV_CAP_PROP_FRAME_WIDTH));
 			int height = (int) (camera.get(Highgui.CV_CAP_PROP_FRAME_HEIGHT));
 			cameraPane = createWindow("Camera output", width, height);
 			opencvPane = createWindow("OpenCV output", width, height);
 		}
+	}
 
+	public static double getBearing() {
 		Mat m = getVideoPicture();
 		Mat pm = ImageProcessor.findRedBalls(m);
 		double bearing = ImageProcessor.getBearing(pm);
