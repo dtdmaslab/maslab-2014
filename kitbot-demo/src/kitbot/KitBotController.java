@@ -7,7 +7,7 @@ public class KitBotController implements MouseListener {
 	private KitBotModel model;
 	private KitBotView view;
 	
-	public KitBotController( KitBotModel model, KitBotView view ) {
+	public KitBotController(KitBotModel model) {
 		this.model = model;
 		this.view = view;
 		

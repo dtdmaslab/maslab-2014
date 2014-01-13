@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 public class KitBotMain {
 	
     public static void main(String[] args) {
-    	int width = 1366;
+    	/*int width = 1366;
     	int height = 768;
     	
     	try {
@@ -17,23 +17,16 @@ public class KitBotMain {
     	} catch ( Exception e ) {
     		System.out.println( e );
     	}
-    	
+
     	JFrame window = new JFrame("Kit Bot Interface");
-    	window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);*/
     	
     	KitBotModel model = new KitBotModel();
-    	KitBotView view = new KitBotView(width,height,window);
-    	KitBotController controller = new KitBotController(model,view);
+    	//KitBotView view = new KitBotView(width,height,window);
+    	//KitBotController controller = new KitBotController(model);
     	
-    	window.setSize(width,height);
-    	window.setVisible(true);
-    	
-    	while ( true ) {
-    		try {
-    			Thread.sleep(100);
-    			view.repaint();
-    		} catch ( Exception e ) {}
-    	}
+    	/*window.setSize(width,height);
+    	window.setVisible(true);*/
     }
     
 }
