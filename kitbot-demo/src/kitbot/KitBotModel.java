@@ -37,7 +37,8 @@ public class KitBotModel {
             	
             });
             System.out.println("????");
-            drawSquare();
+            //drawSquare();
+            forward(0.5, 1000);
         }
         catch (Exception ex){
             System.out.println(ex);
