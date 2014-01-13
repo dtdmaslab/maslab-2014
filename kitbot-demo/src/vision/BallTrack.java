@@ -14,15 +14,11 @@ import org.opencv.highgui.VideoCapture;
 
 public class BallTrack {
 	static VideoCapture camera;
-	private static boolean DEBUG_MODE = false;
+	private static boolean DEBUG_MODE = true;
 	private static JLabel cameraPane = null;
 	private static JLabel opencvPane = null;
 
 	protected static Mat getVideoPicture() {
-		/*if (camera == null) {
-			camera = new VideoCapture();
-			camera.open(0);
-		}*/
 		Mat image = new Mat();
 		// Wait until the camera has a new frame
 		while (!camera.read(image)) {
@@ -52,9 +48,9 @@ public class BallTrack {
 		}
 	}
 
-	public static double getBearing() {
+	public static double getBearing(boolean redBall) {
 		Mat m = getVideoPicture();
-		Mat pm = ImageProcessor.findRedBalls(m);
+		Mat pm = ImageProcessor.findBalls(m, redBall);
 		double bearing = ImageProcessor.getBearing(pm);
 		if (DEBUG_MODE) {
 			updateWindow(cameraPane, m);

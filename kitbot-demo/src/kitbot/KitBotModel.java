@@ -50,7 +50,10 @@ public class KitBotModel {
             // drawSquare();
 
             // Track closest red ball.
-            trackRed();
+            // trackRed();
+
+            // Track the closest green ball.
+            trackGreen();
         }
         catch (Exception ex){
             System.out.println(ex);
@@ -59,7 +62,19 @@ public class KitBotModel {
 
 	public void trackRed() {
 		while (true) {
-			double bearing = BallTrack.getBearing();
+			double bearing = BallTrack.getBearing(true);
+			// If bearing is not a number, we don't see any balls.
+			// TODO: Spin looking for balls here in the case of NaN?
+			if (!Double.isNaN(bearing)) {
+				desired = current + (int)bearing;
+			}
+			Thread.yield();
+		}
+	}
+
+	public void trackGreen() {
+		while (true) {
+			double bearing = BallTrack.getBearing(false);
 			// If bearing is not a number, we don't see any balls.
 			// TODO: Spin looking for balls here in the case of NaN?
 			if (!Double.isNaN(bearing)) {

@@ -22,7 +22,7 @@ public class ImageProcessor {
 	// (In practice it's a little different:
 	//  the output image will be for your visual reference,
 	//  but you will mainly want to output a list of the locations of detected objects.)
-	public static Mat findRedBalls(Mat rawImage) {
+	public static Mat findBalls(Mat rawImage, boolean redBalls) {
 		//Mat processedImage = new Mat();
 		Mat hsv = preprocess(rawImage);
 		Mat bw = new Mat();
@@ -35,21 +35,25 @@ public class ImageProcessor {
 		Mat s = hsv_layers.get(1);
 		Mat v = hsv_layers.get(2);
 		Mat of_interest = new Mat();
-		Imgproc.threshold(s, of_interest, 50, 255, Imgproc.THRESH_BINARY);
-		Mat red = new Mat();
-		Mat red2 = new Mat();
-		Imgproc.threshold(h, red, 10, 255, Imgproc.THRESH_BINARY_INV);
-		Imgproc.threshold(h, red2, 170, 255, Imgproc.THRESH_BINARY);
-		Core.bitwise_or(red, red2, red);
-		Core.bitwise_and(red, of_interest, red);
-		return red;
-		/*List<Mat> three = new ArrayList<Mat>();
-		three.add(red);
-		three.add(red);
-		three.add(red);
-		Core.merge(three, red);
-		Core.bitwise_and(red, rawImage, red);
-		return red;*/
+		Imgproc.threshold(s, of_interest, 80, 255, Imgproc.THRESH_BINARY);
+		if (redBalls) {
+			Mat red = new Mat();
+			Mat red2 = new Mat();
+			Imgproc.threshold(h, red, 10, 255, Imgproc.THRESH_BINARY_INV);
+			Imgproc.threshold(h, red2, 170, 255, Imgproc.THRESH_BINARY);
+			Core.bitwise_or(red, red2, red);
+			Core.bitwise_and(red, of_interest, red);
+			return red;
+		}
+		else {
+			Mat green = new Mat();
+			Mat green2 = new Mat();
+			Imgproc.threshold(h, green, 80, 255, Imgproc.THRESH_BINARY_INV);
+			Imgproc.threshold(h, green2, 140, 255, Imgproc.THRESH_BINARY);
+			Core.bitwise_and(green, green2, green);
+			Core.bitwise_and(green, of_interest, green);
+			return of_interest;
+		}
 	}
 
 	public static double getBearing(Mat binImg) {
