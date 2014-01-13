@@ -74,6 +74,8 @@ public class KitBotModel {
 	}
 
 	public void setMotors( double powerA, double powerB ) {
+		powerA = Math.min(Math.max(-1, powerA), 1);
+		powerB = Math.min(Math.max(-1, powerB), 1);
 		motorA = (byte)(-powerA*127);
 		motorB = (byte)(powerB*127);
 		modified();
@@ -102,5 +104,15 @@ public class KitBotModel {
 
 	public void adjustMotors(int gyroAngle) {
 		current = gyroAngle;
+	}
+
+	public int normalize(int angle) {
+		while (angle > 180) {
+			angle -= 360;
+		}
+		while (angle < -180) {
+			angle += 360;
+		}
+		return angle;
 	}
 }
