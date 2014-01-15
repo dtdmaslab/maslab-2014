@@ -35,7 +35,7 @@ public class ImageProcessor {
 		Mat s = hsv_layers.get(1);
 		Mat v = hsv_layers.get(2);
 		Mat of_interest = new Mat();
-		Imgproc.threshold(s, of_interest, 80, 255, Imgproc.THRESH_BINARY);
+		Imgproc.threshold(s, of_interest, 60, 255, Imgproc.THRESH_BINARY);
 		if (redBalls) {
 			Mat red = new Mat();
 			Mat red2 = new Mat();
@@ -48,8 +48,8 @@ public class ImageProcessor {
 		else {
 			Mat green = new Mat();
 			Mat green2 = new Mat();
-			Imgproc.threshold(h, green, 80, 255, Imgproc.THRESH_BINARY_INV);
-			Imgproc.threshold(h, green2, 140, 255, Imgproc.THRESH_BINARY);
+			Imgproc.threshold(h, green, 40, 255, Imgproc.THRESH_BINARY_INV);
+			Imgproc.threshold(h, green2, 80, 255, Imgproc.THRESH_BINARY);
 			Core.bitwise_and(green, green2, green);
 			Core.bitwise_and(green, of_interest, green);
 			return of_interest;

@@ -14,7 +14,7 @@ import org.opencv.highgui.VideoCapture;
 
 public class BallTrack {
 	static VideoCapture camera;
-	private static boolean DEBUG_MODE = true;
+	private static boolean DEBUG_MODE = false;
 	private static JLabel cameraPane = null;
 	private static JLabel opencvPane = null;
 
